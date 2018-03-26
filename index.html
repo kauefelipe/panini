@@ -31,14 +31,26 @@
           <button id="newAlbumBtn" class="btn btn-success btn-header" title="Criar Novo Álbum"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
           
           <div class="btn-group">
-            <button class="btn btn-warning btn-header" title="Importar números do texto gerado pelo app oficial da panini" dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></button>
+            <button id="importCromosBtnGrp" class="btn dropdown-toggle btn-warning btn-header" dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span><span class="caret"></span></button>
             <ul class="dropdown-menu dropdown-menu-right importCromoMenu">
-              <li><textarea placeholder="Cole aqui o texto gerado pelo aplicativo da Panini para realizar a importação. Na verdade pode ser qualquer lista numérica separada por vírgula."></textarea></li>
+              <li><textarea id="textToImport" placeholder="Cole aqui o texto gerado pelo aplicativo da Panini para realizar a importação. Na verdade pode ser qualquer lista numérica separada por vírgula."></textarea></li>
               <!-- <li role="separator" class="divider"></li> -->
               <li style="text-align: center;">
                 <button id="importCromosBtn" class="btn btn-warning btn-header" title="Importar números"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Importar</button>
               </li>
             </ul>
+          </div>
+
+          <div class="btn-group " data-toggle="buttons">
+            <label class="btn btn-header btn-primary active">
+              <input type="radio" name="options" id="option1" autocomplete="off" checked><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Todas
+            </label>
+            <label class="btn btn-header btn-primary">
+              <input type="radio" name="options" id="option2" autocomplete="off"><span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span> Faltantes
+            </label>
+            <label class="btn btn-header btn-primary">
+              <input type="radio" name="options" id="option3" autocomplete="off"><span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span> Repetidas
+            </label>
           </div>
         </div>
       </div>

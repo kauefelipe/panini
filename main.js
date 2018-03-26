@@ -5,8 +5,9 @@ $(document).ready(function main() {
 	loadData();
 
 	$('#copyRepetidasBtn, #copyFaltantesBtn').tooltip({title: 'C o p i a d o !', trigger:'manual', placement: 'bottom'});
+	$('#importCromosBtnGrp').tooltip({title: 'I m p o r t o u !', trigger:'manual', placement: 'left'});
 
-	$('#cromos .btn-cromo').click(function cromoClick(argument) {
+	$('#cromos .btn-cromo').click(function cromoClick() {
 		var value;
 
 		if ($(this).hasClass('btn-repetida')){
@@ -59,6 +60,28 @@ $(document).ready(function main() {
 				loadData(); //recarrega para usar o novo id
 		    }
 		}); 
+	});
+
+
+	$('#importCromosBtn').click(function importCromosClick() {
+		var numbersToImport;
+		var textToImport = $('#textToImport').val();
+		var tokens = textToImport.replace(/[^0-9,\s]/gi, '').split(/\s+/).filter(s=>s.includes(','))
+		if (tokens.length > 0) {
+			numbersToImport = tokens[0].split(',').map(s=>parseInt(s));
+			console.log('cromos que serão importados:', cromos);
+		}
+		else {
+			numbersToImport = [parseInt(textToImport.trim())] //caso de uso: importar um único número
+		}
+
+		numbersToImport.forEach(function (n) {
+			saveData(n, 1);
+		});
+
+		plotUserData();
+		$('#importCromosBtnGrp').tooltip('show');
+		setTimeout(()=> $('#importCromosBtnGrp').tooltip('hide'), 3000);
 	});
 
 	// document.body.addEventListener("online", function () {
@@ -126,7 +149,7 @@ function plotUserData() {
 	if (userData) {
 		userData.forEach(function plotaCromo(cromo) {
 			var cromoElem = $('#cromos .btn-cromo')[cromo.id];
-			$(cromoElem).addClass(valueClasses[cromo.value]);
+			$(cromoElem).removeClass(valueClasses.join(' ')).addClass(valueClasses[cromo.value]);
 		});
 	}
 }
