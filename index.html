@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="pt" manifest="main.appcache">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="./assets/favicon.ico">
+    <link rel="apple-touch-icon" sizes="114x114" href="./assets/ios-icon.png" />
+
+    <title>Figurinhas da Copa 2018</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="main.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div id="loading"> <i></i> </div>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#"><img src="./assets/favicon.ico" width="24" height="24" title="Panini Copa da Russia 2018" /></a>
+          <button id="copyFaltantesBtn" class="btn btn-info btn-header"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span> Faltantes</button>
+          <button id="copyRepetidasBtn" class="btn btn-repetida btn-header"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span> Repetidas</button>
+          <button id="newAlbumBtn" class="btn btn-success btn-header" title="Criar Novo Álbum"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+          
+          <div class="btn-group">
+            <button class="btn btn-warning btn-header" title="Importar números do texto gerado pelo app oficial da panini" dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span></button>
+            <ul class="dropdown-menu dropdown-menu-right importCromoMenu">
+              <li><textarea placeholder="Cole aqui o texto gerado pelo aplicativo da Panini para realizar a importação. Na verdade pode ser qualquer lista numérica separada por vírgula."></textarea></li>
+              <!-- <li role="separator" class="divider"></li> -->
+              <li style="text-align: center;">
+                <button id="importCromosBtn" class="btn btn-warning btn-header" title="Importar números"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Importar</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="starter-template">
+        <div id="cromos">
+        </div>
+      </div>
+
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./assets/jquery.min.js"></script>
+    <script src="./assets/bootstrap/js/popper.min.js"></script>
+    <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="./main.js"></script>
+  </body>
+</html>
+
