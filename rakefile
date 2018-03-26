@@ -1,6 +1,6 @@
 task default: %w[run]
 
-task :run do
+task :run => :appcache do
 	puts "Copiando os arquivos para o servidor"
 	`touch main.appcache`
 	`scp -r -P 2222 assets *.html *.css *.js main.appcache root@v.rodrigolop.es:/var/www/rodrigolop.es/panini/`

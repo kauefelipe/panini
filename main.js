@@ -2,7 +2,12 @@ $(document).ready(function main() {
 
 	buildCromosHtml();
 
-	loadData();
+	loadData().then(function success() { /*dois thens encadeados funciona como always*/
+		plotUserData();
+		exibirTooltipContagem();
+	}).then(function always() {
+		$('#loading').hide();
+	});
 
 	$('#copyRepetidasBtn, #copyFaltantesBtn').tooltip({title: 'C o p i a d o !', trigger:'manual', placement: 'bottom'});
 	$('#importCromosBtnGrp').tooltip({title: 'I m p o r t o u !', trigger:'manual', placement: 'left'});
@@ -46,6 +51,9 @@ $(document).ready(function main() {
 
 
 	$('#newAlbumBtn').click(function newAlbumClick() {
+		$(this).attr('disabled', true);
+		$('#loading').show();
+
 		$.ajax({
 		    url:"https://api.myjson.com/bins",
 		    type:"POST",
@@ -57,7 +65,15 @@ $(document).ready(function main() {
 				var albumId = data.uri.split('bins/')[1];
 				window.location.hash = `#${albumId}`;
 				alert(`A URL atualizou com o id do seu novo álbum, favorite esta página para voltar a sua coleção no futuro. ID do Álbum: ${albumId}`);
-				loadData(); //recarrega para usar o novo id
+
+				/*recarrega para usar o novo id*/
+				loadData().then(function success() { 
+					plotUserData();
+				});
+		    },
+		    complete: function () {
+		    	$('#newAlbumBtn').attr('disabled', false);
+		    	$('#loading').hide();
 		    }
 		}); 
 	});
@@ -84,6 +100,12 @@ $(document).ready(function main() {
 		setTimeout(()=> $('#importCromosBtnGrp').tooltip('hide'), 3000);
 	});
 
+
+	$('.navbar-brand').click(function contagemClick() {
+		exibirTooltipContagem();
+	});
+
+
 	// document.body.addEventListener("online", function () {
 	// 	console.log('Entrei online');
 	// 	var failedToSave = JSON.parse(localStorage.getItem(albumId+'failedToSave'));
@@ -102,20 +124,27 @@ var persistTimer;
 
 
 function loadData() {
-	var hash = window.location.hash;
-	if (hash.length > 1) {
-		albumId = hash.split('#')[1];
-		$('.navbar-brand').attr('href', window.location.hash);
+
+	var executor = function (resolve, reject) {
+		var hash = window.location.hash;
+		if (hash.length > 1) {
+			albumId = hash.split('#')[1];
+			$('.navbar-brand').attr('href', window.location.hash);
+		}
+
+		resetHtmlCromoStates();
+
+		if (navigator.onLine) {
+			loadDataOnline(resolve, reject);
+		}
+		else {
+			loadDataOffline();
+			resolve();
+		}
 	}
 
-	resetHtmlCromoStates();
+	return new Promise(executor);
 
-	if (navigator.onLine) {
-		loadDataOnline();
-	}
-	else {
-		loadDataOffline();
-	}
 }
 
 function loadDataOffline() {
@@ -126,20 +155,17 @@ function loadDataOffline() {
 	else {
 		userData = [];
 	}
-	plotUserData();
-	$('#loading').hide();
 }
 
-function loadDataOnline() {
+function loadDataOnline(resolve, reject) {
 	$.get("https://api.myjson.com/bins/"+albumId, function(data, textStatus, jqXHR) {
 		console.log(data);
 		userData = data;
-		plotUserData();
+		resolve();
 	}).fail(function () {
 		console.log('Erro ao carregar álbum.');
 		alert('Erro ao carregar o álbum selecionado. Você pode ter digitado o ID errado ou algum problema com a conexão com a internet.');
-	}).done(function () {
-		$('#loading').hide();
+		reject();
 	});
 }
 
@@ -235,6 +261,17 @@ function buildCromosHtml() {
 	}
 
 	$(fragment).appendTo('#cromos');
+}
+
+function exibirTooltipContagem() {
+	var falta = getFaltantes().length;
+	var total = $('#cromos .btn-cromo').length;
+	var possui = total - falta;
+	var repetidas = getRepetidas().length;
+
+	var texto = `Você possui <b>${possui}</b> cromos.<br>Faltam <b>${falta}</b> de <b>${total}</b> para completar.<br>Repetidas: <b>${repetidas}</b>`;
+	$('.navbar-brand').tooltip({html: true, title: texto, trigger:'manual', placement: 'bottom'}).tooltip('show');
+	setTimeout(()=> $('.navbar-brand').tooltip('hide'), 5000);
 }
 
 function copyText(text){
