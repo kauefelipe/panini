@@ -5,3 +5,31 @@ task :run do
 	`touch main.appcache`
 	`scp -r -P 2222 assets *.html *.css *.js main.appcache root@v.rodrigolop.es:/var/www/rodrigolop.es/panini/`
 end
+
+task :appcache do
+	revision = 1
+	cache_filename = 'main.appcache'
+
+	if File.exists?(cache_filename)
+		manifest = File.read(cache_filename)
+		revision = manifest.lines.to_a[1].split(/:/).last.strip.to_i + 1
+	end
+
+	puts "Nova revision: #{revision}"
+	
+	File.open(cache_filename, 'w') do |cache_file|
+		cache_file.puts('CACHE MANIFEST')
+		cache_file.puts("# Revision: #{revision}\n")
+		cache_file.puts("\nCACHE:")
+		Dir.glob('**/*') do |fname|
+			unless [cache_filename, 'rakefile'].include?(File.basename(fname))
+				cache_file.puts(fname) unless fname.include?('glyphicons-halflings-regular') or File.directory?(fname)
+			end
+		end
+
+		cache_file.puts("\nNETWORK:")
+		cache_file.puts("*")
+	end
+
+	puts `cat #{cache_filename}`
+end

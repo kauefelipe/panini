@@ -1,6 +1,25 @@
 CACHE MANIFEST
-*.html
-*.css
-*.js
-*.ico
-assets/
+# Revision: 15
+
+CACHE:
+main.js
+index.html
+assets/favicon.ico
+assets/bootstrap/js/popper.min.js
+assets/bootstrap/js/bootstrap.js
+assets/bootstrap/js/bootstrap.min.js
+assets/bootstrap/js/npm.js
+assets/bootstrap/css/bootstrap.css
+assets/bootstrap/css/bootstrap-theme.min.css.map
+assets/bootstrap/css/bootstrap.min.css
+assets/bootstrap/css/bootstrap-theme.css
+assets/bootstrap/css/bootstrap-theme.css.map
+assets/bootstrap/css/bootstrap-theme.min.css
+assets/bootstrap/css/bootstrap.min.css.map
+assets/bootstrap/css/bootstrap.css.map
+assets/jquery.min.js
+assets/ios-icon.png
+main.css
+
+NETWORK:
+*
