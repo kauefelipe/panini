@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# Revision: 43
+# Revision: 45
 
 CACHE:
 main.js
@@ -9,6 +9,11 @@ assets/bootstrap/js/popper.min.js
 assets/bootstrap/js/bootstrap.js
 assets/bootstrap/js/bootstrap.min.js
 assets/bootstrap/js/npm.js
+assets/bootstrap/fonts/glyphicons-halflings-regular.woff2
+assets/bootstrap/fonts/glyphicons-halflings-regular.ttf
+assets/bootstrap/fonts/glyphicons-halflings-regular.eot
+assets/bootstrap/fonts/glyphicons-halflings-regular.woff
+assets/bootstrap/fonts/glyphicons-halflings-regular.svg
 assets/bootstrap/css/bootstrap.css
 assets/bootstrap/css/bootstrap-theme.min.css.map
 assets/bootstrap/css/bootstrap.min.css

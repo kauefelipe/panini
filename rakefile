@@ -23,7 +23,7 @@ task :appcache do
 		cache_file.puts("\nCACHE:")
 		Dir.glob('**/*') do |fname|
 			unless [cache_filename, 'rakefile'].include?(File.basename(fname))
-				cache_file.puts(fname) unless fname.include?('glyphicons-halflings-regular') or File.directory?(fname)
+				cache_file.puts(fname) unless File.directory?(fname)
 			end
 		end
 
