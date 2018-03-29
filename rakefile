@@ -22,7 +22,7 @@ task :appcache do
 		cache_file.puts("# Revision: #{revision}\n")
 		cache_file.puts("\nCACHE:")
 		Dir.glob('**/*') do |fname|
-			unless [cache_filename, 'rakefile'].include?(File.basename(fname))
+			unless [cache_filename, 'rakefile', 'README.md'].include?(File.basename(fname))
 				cache_file.puts(fname) unless File.directory?(fname)
 			end
 		end

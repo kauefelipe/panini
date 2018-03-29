@@ -100,7 +100,7 @@ $(document).ready(function main() {
 	});
 
 
-	$('#textToCompare').on('keyup', function compareCromosClick() {
+	$('#textToCompare').on('input', function compareCromosClick() {
 		var textToCompare = $('#textToCompare').val();
 		var numbersToCompare = parseCommaSeparatedNumbers(textToCompare);
 		console.log('cromos que serão comparados:', numbersToCompare);
