@@ -1,5 +1,5 @@
 body {
-  padding-top: 50px;
+  padding-top: 80px;
 }
 
 .navbar-brand {
@@ -55,6 +55,15 @@ body {
 
 .importCromoMenu textarea {
 	height: 200px;
+	width: 100%;
+}
+
+.compareCromoMenu li {
+	width: 240px;
+}
+
+.compareCromoMenu textarea {
+	height: 110px;
 	width: 100%;
 }
 

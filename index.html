@@ -25,15 +25,10 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-
           <a class="navbar-brand" href="#"><img src="./assets/favicon.ico" width="24" height="24" title="Panini Copa da Russia 2018" /></a>
-          <button id="copyFaltantesBtn" class="btn btn-info btn-header"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span> Faltantes</button>
-          <button id="copyRepetidasBtn" class="btn btn-repetida btn-header"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span> Repetidas</button>
-          <button id="newAlbumBtn" class="btn btn-success btn-header" title="Criar Novo Álbum"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-          
           <div class="btn-group">
             <button id="importCromosBtnGrp" class="btn dropdown-toggle btn-warning btn-header" dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> <span class="caret"></span></button>
-            <ul class="dropdown-menu dropdown-menu-right importCromoMenu">
+            <ul class="dropdown-menu importCromoMenu">
               <li><textarea id="textToImport" placeholder="Cole aqui o texto gerado pelo aplicativo da Panini para realizar a importação. Também pode ser qualquer lista numérica separada por vírgula."></textarea></li>
               <!-- <li role="separator" class="divider"></li> -->
               <li style="text-align: center;">
@@ -44,14 +39,17 @@
 
           <div class="btn-group">
             <button id="compareCromosBtnGrp" class="btn dropdown-toggle btn-warning btn-header" dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span> <span class="caret"></span></button>
-            <ul class="dropdown-menu dropdown-menu-right importCromoMenu">
-              <li><textarea id="textToCompare" placeholder="Cole aqui os núumeros separados por vírgula para checar quais você não tem."></textarea></li>
+            <ul class="dropdown-menu compareCromoMenu">
+              <li><textarea id="textToCompare" placeholder="Cole aqui os números separados por vírgula para checar quais você não tem."></textarea></li>
               <!-- <li role="separator" class="divider"></li> -->
               <li id="resultCompare" style="text-align: center;">
               </li>
             </ul>
           </div>
-          
+
+          <button id="copyFaltantesBtn" class="btn btn-info btn-header"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span> Faltantes</button>
+          <button id="copyRepetidasBtn" class="btn btn-repetida btn-header"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span> Repetidas</button>
+          <button id="newAlbumBtn" class="btn btn-success btn-header" title="Criar Novo Álbum"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
         </div>
       </div>
     </nav>

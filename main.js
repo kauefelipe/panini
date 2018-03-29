@@ -9,7 +9,7 @@ $(document).ready(function main() {
 		$('#loading').hide();
 	});
 
-	$('#copyRepetidasBtn, #copyFaltantesBtn').tooltip({title: 'C o p i a d o !', trigger:'manual', placement: 'bottom'});
+	$('#copyRepetidasBtn, #copyFaltantesBtn, #compareCromosBtnGrp').tooltip({title: 'Copiado!', trigger:'manual', placement: 'bottom'});
 	$('#importCromosBtnGrp').tooltip({title: 'I m p o r t o u !', trigger:'manual', placement: 'left'});
 
 	$('#cromos .btn-cromo').click(function cromoClick() {
@@ -49,6 +49,12 @@ $(document).ready(function main() {
 		setTimeout(()=> $(this).tooltip('hide'), 3000);
 	});
 
+	$('#resultCompare').click(function copyFaltantesClick() {
+		copyText($(this).text());
+		$('#compareCromosBtnGrp').tooltip('show');
+		setTimeout(()=> $('#compareCromosBtnGrp').tooltip('hide'), 3000);
+	});
+
 
 	$('#newAlbumBtn').click(function newAlbumClick() {
 		$(this).attr('disabled', true);
@@ -81,17 +87,7 @@ $(document).ready(function main() {
 
 	$('#importCromosBtn').click(function importCromosClick() {
 		var textToImport = $('#textToImport').val();
-		var numbersToImport = textToImport
-								.split(/\s+/)
-								.join(',')
-								.replace(/,,/g,',')
-								.split(',')
-								.map(s=>parseInt(s))
-								.filter(n=>n>=0&&n<=681);
-
-		if (numbersToImport.length == 0) {
-			numbersToImport = [parseInt(textToImport.trim())] //caso de uso: importar um único número
-		}
+		var numbersToImport = parseCommaSeparatedNumbers(textToImport);
 		console.log('cromos que serão importados:', numbersToImport);
 
 		numbersToImport.forEach(function (n) {
@@ -101,6 +97,16 @@ $(document).ready(function main() {
 		plotUserData();
 		$('#importCromosBtnGrp').tooltip('show');
 		setTimeout(()=> $('#importCromosBtnGrp').tooltip('hide'), 3000);
+	});
+
+
+	$('#textToCompare').on('keyup', function compareCromosClick() {
+		var textToCompare = $('#textToCompare').val();
+		var numbersToCompare = parseCommaSeparatedNumbers(textToCompare);
+		console.log('cromos que serão comparados:', numbersToCompare);
+
+		var missing = numbersToCompare.intersection(getFaltantes());
+		$('#resultCompare').html('Preciso das seguintes: ' + missing.join(', '));
 	});
 
 
@@ -291,6 +297,22 @@ function exibirTooltipContagem() {
 	}
 }
 
+function parseCommaSeparatedNumbers(textToParse) {
+	var numbers = textToParse
+							.split(/\s+/)
+							.join(',')
+							.replace(/,,/g,',')
+							.split(',')
+							.map(s=>parseInt(s))
+							.filter(n=>n>=0&&n<=681);
+
+	if (numbers.length == 0) {
+		numbers = [parseInt(textToParse.trim())] //caso de uso: importar um único número
+	}
+
+	return numbers;
+}
+
 function copyText(text){
 	function selectElementText(element) {
 		if (document.selection) {
@@ -315,5 +337,11 @@ function copyText(text){
 Array.prototype.diff = function(a) {
     return this.filter(function(i) {return a.indexOf(i) < 0;});
 };
+
+Array.prototype.intersection = function (a) {
+	return this.filter(function(n) {
+    	return a.indexOf(n) !== -1;
+	});
+}
 
 if (typeof(console) == undefined) console = {log: s=>{} };
