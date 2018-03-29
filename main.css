@@ -2,6 +2,10 @@ body {
   padding-top: 50px;
 }
 
+.navbar-brand {
+    padding: 15px 8px;
+}
+
 .starter-template {
   padding: 8px 0px;
   text-align: center;

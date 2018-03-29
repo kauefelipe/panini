@@ -80,16 +80,19 @@ $(document).ready(function main() {
 
 
 	$('#importCromosBtn').click(function importCromosClick() {
-		var numbersToImport;
 		var textToImport = $('#textToImport').val();
-		var tokens = textToImport.replace(/[^0-9,\s]/gi, '').split(/\s+/).filter(s=>s.includes(','))
-		if (tokens.length > 0) {
-			numbersToImport = tokens[0].split(',').map(s=>parseInt(s));
-			console.log('cromos que serão importados:', cromos);
-		}
-		else {
+		var numbersToImport = textToImport
+								.split(/\s+/)
+								.join(',')
+								.replace(/,,/g,',')
+								.split(',')
+								.map(s=>parseInt(s))
+								.filter(n=>n>=0&&n<=681);
+
+		if (numbersToImport.length == 0) {
 			numbersToImport = [parseInt(textToImport.trim())] //caso de uso: importar um único número
 		}
+		console.log('cromos que serão importados:', numbersToImport);
 
 		numbersToImport.forEach(function (n) {
 			saveData(n, 1);
@@ -263,15 +266,29 @@ function buildCromosHtml() {
 	$(fragment).appendTo('#cromos');
 }
 
-function exibirTooltipContagem() {
-	var falta = getFaltantes().length;
-	var total = $('#cromos .btn-cromo').length;
-	var possui = total - falta;
-	var repetidas = getRepetidas().length;
 
-	var texto = `Você possui <b>${possui}</b> cromos.<br>Faltam <b>${falta}</b> de <b>${total}</b> para completar.<br>Repetidas: <b>${repetidas}</b>`;
-	$('.navbar-brand').tooltip({html: true, title: texto, trigger:'manual', placement: 'bottom'}).tooltip('show');
-	setTimeout(()=> $('.navbar-brand').tooltip('hide'), 5000);
+var showTimer = null;
+var showTime = 2500;
+function exibirTooltipContagem() {
+
+	if (showTimer) {
+		clearTimeout(showTimer);
+		showTimer = null;
+		$('.navbar-brand').tooltip('hide');
+		showTime = 5000; //aumenta o tempo de exibição depois da primeira exibição
+	}
+	else {
+		var falta = getFaltantes().length;
+		var total = $('#cromos .btn-cromo').length;
+		var possui = total - falta;
+		var repetidas = getRepetidas().length;
+
+		var texto = `Você possui <b>${possui}</b> cromos.<br>Faltam <b>${falta}</b> de <b>${total}</b> para completar.<br>Repetidas: <b>${repetidas}</b>`;
+		$('.navbar-brand').tooltip({html: true, title: 'calculando...', trigger:'manual', placement: 'bottom'}).tooltip('show');
+		var tooltipElem = document.getElementById($('.navbar-brand').attr('aria-describedby'));
+		$('.tooltip-inner', tooltipElem).html(texto);
+		showTimer = setTimeout(()=>{$('.navbar-brand').tooltip('hide'); showTimer=null}, showTime);
+	}
 }
 
 function copyText(text){

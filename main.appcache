@@ -1,30 +1,31 @@
 CACHE MANIFEST
-# Revision: 45
+# Revision: 47
 
 CACHE:
-main.js
-index.html
-assets/favicon.ico
-assets/bootstrap/js/popper.min.js
-assets/bootstrap/js/bootstrap.js
-assets/bootstrap/js/bootstrap.min.js
-assets/bootstrap/js/npm.js
-assets/bootstrap/fonts/glyphicons-halflings-regular.woff2
-assets/bootstrap/fonts/glyphicons-halflings-regular.ttf
-assets/bootstrap/fonts/glyphicons-halflings-regular.eot
-assets/bootstrap/fonts/glyphicons-halflings-regular.woff
-assets/bootstrap/fonts/glyphicons-halflings-regular.svg
-assets/bootstrap/css/bootstrap.css
-assets/bootstrap/css/bootstrap-theme.min.css.map
-assets/bootstrap/css/bootstrap.min.css
 assets/bootstrap/css/bootstrap-theme.css
 assets/bootstrap/css/bootstrap-theme.css.map
 assets/bootstrap/css/bootstrap-theme.min.css
-assets/bootstrap/css/bootstrap.min.css.map
+assets/bootstrap/css/bootstrap-theme.min.css.map
+assets/bootstrap/css/bootstrap.css
 assets/bootstrap/css/bootstrap.css.map
-assets/jquery.min.js
+assets/bootstrap/css/bootstrap.min.css
+assets/bootstrap/css/bootstrap.min.css.map
+assets/bootstrap/fonts/glyphicons-halflings-regular.eot
+assets/bootstrap/fonts/glyphicons-halflings-regular.svg
+assets/bootstrap/fonts/glyphicons-halflings-regular.ttf
+assets/bootstrap/fonts/glyphicons-halflings-regular.woff
+assets/bootstrap/fonts/glyphicons-halflings-regular.woff2
+assets/bootstrap/js/bootstrap.js
+assets/bootstrap/js/bootstrap.min.js
+assets/bootstrap/js/npm.js
+assets/bootstrap/js/popper.min.js
+assets/favicon.ico
 assets/ios-icon.png
+assets/jquery.min.js
+index.html
 main.css
+main.js
+README.md
 
 NETWORK:
 *
