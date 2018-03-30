@@ -272,29 +272,36 @@ function buildCromosHtml() {
 	$(fragment).appendTo('#cromos');
 }
 
+function getEstruturaOrdenadaEContada() {
+	return estrutura.sort((a,b)=>a.inicio-b.inicio).map(function (estr) {
+		estr.possuidas = userData.filter(c=>c.id >= estr.inicio && c.id < estr.inicio+20 && c.value).length
+		return estr
+	})
+}
 
 var showTimer = null;
-var showTime = 2500;
+var showTime = 2000;
 function exibirTooltipContagem() {
 
 	if (showTimer) {
 		clearTimeout(showTimer);
 		showTimer = null;
 		$('.navbar-brand').tooltip('hide');
-		showTime = 5000; //aumenta o tempo de exibição depois da primeira exibição
 	}
 	else {
 		var falta = getFaltantes().length;
 		var total = $('#cromos .btn-cromo').length;
 		var possui = total - falta;
 		var repetidas = getRepetidas().length;
+		var estrCountHtml = getEstruturaOrdenadaEContadaHtml();
 
-		var texto = `Você possui <b>${possui}</b> cromos.<br>Faltam <b>${falta}</b> de <b>${total}</b> para completar.<br>Repetidas: <b>${repetidas}</b>`;
+		var texto = `Você possui <b>${possui}</b> cromos.<br>Faltam <b>${falta}</b> de <b>${total}</b> para completar.<br>Repetidas: <b>${repetidas}</b>${estrCountHtml}`;
 		$('.navbar-brand').tooltip({html: true, title: 'calculando...', trigger:'manual', placement: 'bottom'}).tooltip('show');
 		var tooltipElem = document.getElementById($('.navbar-brand').attr('aria-describedby'));
-		$('.tooltip-inner', tooltipElem).html(texto);
+		$('.tooltip-inner', tooltipElem).html(texto).addClass('tooltip-contagem');
 		showTimer = setTimeout(()=>{$('.navbar-brand').tooltip('hide'); showTimer=null}, showTime);
 	}
+	showTime = 60000; //aumenta o tempo de exibição depois da primeira exibição
 }
 
 function parseCommaSeparatedNumbers(textToParse) {
@@ -311,6 +318,17 @@ function parseCommaSeparatedNumbers(textToParse) {
 	}
 
 	return numbers;
+}
+
+function getEstruturaOrdenadaEContadaHtml() {
+	var estrCount = getEstruturaOrdenadaEContada();
+	var html ='<div class="flags">';
+	html += estrCount.map(function (estr) {
+		var possuidas = estr.possuidas<10 ? '0'+estr.possuidas : estr.possuidas;
+		return `<span class="flag"><img src="./assets/flags/${estr.id}.png" /> ${possuidas}</span>`;
+	}).join('\n');
+	html += '</div>';
+	return html;
 }
 
 function copyText(text){

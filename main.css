@@ -67,6 +67,23 @@ body {
 	width: 100%;
 }
 
+.tooltip-contagem {
+	width: 280px;
+	max-width: unset;
+}
+
+.flag {
+	display: inline-block;
+	width: 62px;
+	font-family: monospace;
+	font-size: medium;
+    line-height: 2em;
+}
+
+.flag img {
+	width: 32px;
+}
+
 #loading {
 	  opacity:    0.5; 
 	  background: #000; 
