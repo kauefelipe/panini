@@ -9,7 +9,7 @@ $(document).ready(function main() {
 		$('#loading').hide();
 	});
 
-	$('#copyRepetidasBtn, #copyFaltantesBtn, #compareCromosBtnGrp').tooltip({title: 'Copiado!', trigger:'manual', placement: 'bottom'});
+	$('#copyRepetidasBtn, #copyFaltantesBtn, #compareCromosBtnGrp, #compareMinhasRepetidasBtnGrp').tooltip({title: 'Copiado!', trigger:'manual', placement: 'bottom'});
 	$('#importCromosBtnGrp').tooltip({title: 'I m p o r t o u !', trigger:'manual', placement: 'left'});
 
 	$('#cromos .btn-cromo').click(function cromoClick() {
@@ -50,10 +50,11 @@ $(document).ready(function main() {
 		setTimeout(()=> $(this).tooltip('hide'), 3000);
 	});
 
-	$('#resultCompare').click(function copyFaltantesClick() {
+	$('#resultCompareMinhasRepetidas, #resultCompare').click(function copyCompareMinhasRepetidasClick() {
 		copyText($(this).text());
-		$('#compareCromosBtnGrp').tooltip('show');
-		setTimeout(()=> $('#compareCromosBtnGrp').tooltip('hide'), 3000);
+		var $btn = $(this).parents('.btn-group').find('.dropdown-toggle');
+		$btn.tooltip('show');
+		setTimeout(()=> $btn.tooltip('hide'), 3000);
 	});
 
 
@@ -100,14 +101,24 @@ $(document).ready(function main() {
 		setTimeout(()=> $('#importCromosBtnGrp').tooltip('hide'), 3000);
 	});
 
-
+	//Compara uma lista de números contra as que preciso
 	$('#textToCompare').on('input', function compareCromosClick() {
-		var textToCompare = $('#textToCompare').val();
+		var textToCompare = $(this).val();
 		var numbersToCompare = parseCommaSeparatedNumbers(textToCompare);
 		console.log('cromos que serão comparados:', numbersToCompare);
 
 		var missing = numbersToCompare.intersection(getFaltantes());
 		$('#resultCompare').html('Preciso das seguintes: ' + missing.join(', '));
+	});
+
+	//Compara minhas repetidas contra uma lista de números
+	$('#textToCompareMinhasRepetidas').on('input', function compareCromosClick() {
+		var textToCompare = $(this).val();
+		var numbersToCompare = parseCommaSeparatedNumbers(textToCompare);
+		console.log('cromos que serão comparados:', numbersToCompare);
+
+		var repetidas = numbersToCompare.intersection(getRepetidas());
+		$('#resultCompareMinhasRepetidas').html('Posso te ajudar com estes números: ' + repetidas.join(', '));
 	});
 
 

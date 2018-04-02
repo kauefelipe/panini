@@ -87,8 +87,13 @@ body {
 .btn-check span.glyphicon-ok {
 	opacity: 0;				
 }
+
 .btn-check.active span.glyphicon-ok {
 	opacity: 1;				
+}
+
+.dropdown-menu {
+	left: -60%;
 }
 
 #loading {
