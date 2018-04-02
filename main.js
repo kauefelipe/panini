@@ -29,6 +29,7 @@ $(document).ready(function main() {
 		}
 
 		saveData(parseInt($(this).text()), value);
+		updateCounters();
 	});
 
 
@@ -115,6 +116,31 @@ $(document).ready(function main() {
 	});
 
 
+	$('#filtraFaltantes').on('change', function contagemClick() {
+		filtraFaltantes = this.checked;
+		plotUserData();
+	});
+
+
+	$('#filtraRepetidas').on('change', function contagemClick() {
+		filtraRepetidas = this.checked;
+		plotUserData();
+	});
+
+
+	$('#cleanRepetidas').on('click', function contagemClick() {
+		if (confirm('Deseja limpar todas as repetidas?')) {
+			console.log('Limpar repetidas.');
+			userData.forEach((c)=>{c.value=c.value>1?1:c.value;});
+			plotUserData();
+			saveData();
+		}
+		else {
+			console.log('Não limpar.');
+		}
+	});
+
+
 	// document.body.addEventListener("online", function () {
 	// 	console.log('Entrei online');
 	// 	var failedToSave = JSON.parse(localStorage.getItem(albumId+'failedToSave'));
@@ -130,6 +156,8 @@ var userData;
 var testAlbumId = 'w204n';
 var albumId = testAlbumId;
 var persistTimer;
+var filtraFaltantes = false;
+var filtraRepetidas = false;
 
 
 function loadData() {
@@ -186,6 +214,27 @@ function plotUserData() {
 			var cromoElem = $('#cromos .btn-cromo')[cromo.id];
 			$(cromoElem).removeClass(valueClasses.join(' ')).addClass(valueClasses[cromo.value]);
 		});
+	}
+
+	executaFiltros();
+	updateCounters();
+}
+
+function updateCounters() {
+	var repetidas = $('#cromos .btn-cromo.btn-repetida').length;
+	var faltantes = $('#cromos .btn-cromo:not(.btn-success):not(.btn-repetida)').length;
+	$('#repetidasCount').html(repetidas);
+	$('#faltantesCount').html(faltantes);
+}
+
+function executaFiltros() {
+	if (filtraFaltantes || filtraRepetidas) {
+		$('#cromos .btn-cromo').hide();
+		filtraFaltantes && $('#cromos .btn-cromo:not(.btn-success):not(.btn-repetida)').show();
+		filtraRepetidas && $('#cromos .btn-cromo.btn-repetida').show();
+	}
+	else {
+		$('#cromos .btn-cromo').show();
 	}
 }
 

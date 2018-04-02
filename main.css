@@ -84,6 +84,13 @@ body {
 	width: 32px;
 }
 
+.btn-check span.glyphicon-ok {
+	opacity: 0;				
+}
+.btn-check.active span.glyphicon-ok {
+	opacity: 1;				
+}
+
 #loading {
 	  opacity:    0.5; 
 	  background: #000; 
