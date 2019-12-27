@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# Revision: 70
+# Revision: 72
 
 CACHE:
 assets/bootstrap/css/bootstrap-theme.css
@@ -56,10 +56,10 @@ assets/flags/uru.png
 assets/ios-icon.png
 assets/jquery.min.js
 assets/splash_panini.png
-assets/splash_panini_750.png
 index.html
 main.css
 main.js
+splash_panini_750.png
 
 NETWORK:
 *
